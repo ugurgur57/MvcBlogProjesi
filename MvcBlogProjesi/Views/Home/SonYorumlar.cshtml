@@ -1,0 +1,15 @@
+﻿@model List<MvcBlogProjesi.DataModel.Yorum>
+<h3>Son Eklenen Yorumlar</h3>
+@foreach (var item in Model)
+{
+    <div style="border:1px solid black">
+        <h3>Üye Bilgileri</h3>
+        @{ string adsoyad = item.Uye.Ad + " " + item.Uye.Soyad;}
+        @adsoyad
+        <h3>Makale Bilgileri</h3>
+        @Html.ActionLink(@item.Makale.Baslik, "MakaleByYorum", new { id = item.YorumId })
+        <h3>Yorum İçeriği</h3>
+        @Html.Raw(@item.Icerik)
+    </div>
+}
+
