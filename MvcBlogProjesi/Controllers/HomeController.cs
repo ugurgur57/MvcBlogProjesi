@@ -9,41 +9,42 @@ namespace MvcBlogProjesi.Controllers
 {
     public class HomeController : Controller
     {
-        BlogDbContext dc = new BlogDbContext();
         public ActionResult Index()
         {
             return View();
         }
+        BlogDbContext dc = new BlogDbContext();
         public ActionResult SonMakaleler()
         {
-            //AraKatmandaki(DbContext) makaleler sınıfından son eklenen 3 makaleyi görüntüleyecek Partial View için modelliste oluşturulmalıyız.
+            //AraKatmandaki(DbContext) Makaleler sınıfından son eklenen 3 makaleyi görüntüleyecek PartialView için modelListe oluşturmalıyız.
             List<Makale> makaleListe = dc.Makales.OrderByDescending(m => m.Tarih).Take(3).ToList();
             return PartialView(makaleListe);
         }
         public ActionResult SonYorumlar()
         {
-            //AraKatmandaki(DbContext) makaleler sınıfından son eklenen 3 makaleyi görüntüleyecek Partial View için modelliste oluşturulmalıyız.
-            List<Yorum> yorumListe = dc.Yorums.OrderByDescending(m => m.Tarih).Take(3).ToList();
+            //AraKatmandaki(DbContext) Makaleler sınıfından son eklenen 3 makaleyi görüntüleyecek PartialView için modelListe oluşturmalıyız.
+            List<Yorum> yorumListe = dc.Yorums.OrderByDescending(y => y.Tarih).Take(3).ToList();
             return PartialView(yorumListe);
         }
         public ActionResult CokKullanilanEtiketler()
         {
-            //En çok makale ile ilişkilendiren 5 adet etiketi görüntüleyecek PartialView için modelliste oluşturmalıyız.
-            List<Etiket> etiketliste = dc.Etikets.OrderByDescending(e => e.Makales.Count).Take(5).ToList();
-
-            return PartialView(etiketliste);
+            //En çok makaleyle ilişkilendirilen 5 adet etiketi görüntüleyecek PartialView için modelListe oluşturmalıyız.
+            List<Etiket> etiketListe = (from e in dc.Etikets
+                                        orderby e.Makales.Count descending
+                                        select e).Take(5).ToList();
+            return PartialView(etiketListe);
         }
-        public ActionResult MakalelerByEtiket(int id)
+        public ActionResult MakalelerByEtiket(int ID)
         {
-            var makaleliste = (from e in dc.Etikets
-                               where e.EtiketId == id
+            var makaleListe = (from e in dc.Etikets
+                               where e.EtiketId == ID
                                select e.Makales).ToList();
-            return View(makaleliste[0]);//Burada veriler içiçe liste(koleksiyon halinde geldiği için (ki çoğunlukla bir tane olacaktır.) içerideki ilk listeyi [0] indeksi ile çekip gönderiyoruz.
+            return View(makaleListe[0]); //Burada veriler içiçe liste(koleksiyon) halinde geldiği için (ki çoğunlukla sadece 1 tane olacaktır) içerideki ilk listeyi [0] indeksi ile çekip gönderiyoruz.
         }
-        public ActionResult MakaleByYorum(int id)
+        public ActionResult MakaleByYorum(int ID)
         {
             Makale yorumMakale = (from y in dc.Yorums
-                               where y.YorumId == id
+                               where y.YorumId == ID
                                select y.Makale).FirstOrDefault();
             return View(yorumMakale);
         }

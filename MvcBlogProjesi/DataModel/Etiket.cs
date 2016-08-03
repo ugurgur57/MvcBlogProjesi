@@ -10,11 +10,11 @@ namespace MvcBlogProjesi.DataModel
     {
         public int EtiketId { get; set; }
 
-        [Required(ErrorMessage = "Lütfen Etiket İçetiğini Giriniz!")]
+        [Required(ErrorMessage = "Lütfen etiket içeriğini giriniz!")]
         [StringLength(20, ErrorMessage = "Etiket 20 karakterden uzun olmamalıdır!")]
         public string Icerik { get; set; }
 
-        //Bir etiket bir çok makalede bulunabilir.
+        //Bir etiket birçok makalede bulunabilir.
         public virtual List<Makale> Makales { get; set; }
     }
 }

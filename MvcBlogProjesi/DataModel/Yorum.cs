@@ -10,15 +10,14 @@ namespace MvcBlogProjesi.DataModel
     {
         public int YorumId { get; set; }
 
-        [Required(ErrorMessage = "Lütfen Yorumunuzu Giriniz!")]
+        [Required(ErrorMessage = "Lütfen yorumunuzu giriniz!")]
         public string Icerik { get; set; }
 
-        [Required(ErrorMessage = "Lütfen Yorum Tarihini Giriniz!")]
+        [Required(ErrorMessage = "Lütfen yorum tarihini giriniz!")]
         [DataType(DataType.DateTime, ErrorMessage = "Lütfen tarih formatına uygun giriniz!")]
         public string Tarih { get; set; }
 
-        //ForeignKey' lerin oluşturulabilmesi için tüm class'lara gerekli referansları oluşturmalıyız.
-
+        //Foreign Key'lerin oluşturulabilmesi için tüm class'lara gerekli referansları oluşturmalıyız.
         //Her yorumu yazan bir üye vardır.
         public virtual Uye Uye { get; set; }
 

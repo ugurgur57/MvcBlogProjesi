@@ -10,18 +10,17 @@ namespace MvcBlogProjesi.DataModel
     {
         public int MakaleId { get; set; }
 
-        [Required(ErrorMessage = "Lütfen Makale Başlığı Giriniz!")]
-        [StringLength(50, ErrorMessage = "Başlık 50 karakterden uzun olmamalıdır!")]
+        [Required(ErrorMessage = "Lütfen makale başlığını giriniz!")]
+        [StringLength(50, ErrorMessage = "Başlık 20 karakterden uzun olmamalıdır!")]
         public string Baslik { get; set; }
 
-        [Required(ErrorMessage = "Lütfen Makale İçeriğini Giriniz!")]
-        [DataType(DataType.Html, ErrorMessage = "Makale içeriğini HTML formatına uygun giriniz")]
-        public string Email { get; set; }
-        
-        [Required(ErrorMessage = "Lütfen Makale Tarihini Giriniz!")]
+        [Required(ErrorMessage = "Lütfen makale içeriğini giriniz!")]
+        [DataType(DataType.Html, ErrorMessage = "Makale içeriğini Html formatına uygun giriniz!")]
+        public string Icerik { get; set; }
+
+        [Required(ErrorMessage = "Lütfen makale tarihini giriniz!")]
         [DataType(DataType.DateTime, ErrorMessage = "Lütfen tarih formatına uygun giriniz!")]
         public string Tarih { get; set; }
-
         //Her makaleyi yazan bir üye vardır.
         public virtual Uye Uye { get; set; }
 
